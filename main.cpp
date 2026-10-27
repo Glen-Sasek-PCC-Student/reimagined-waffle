@@ -7,6 +7,7 @@
 // ------------- CODE -------------
 #include <iostream>
 #include <iomanip> // for setw()
+#include <bitset>
 #include <cctype>
 using namespace std;
 
@@ -22,6 +23,7 @@ int main()
   const int COL_2_WIDTH = 3;
   const int COL_3_WIDTH = 9;
 
+  cout << "VERTICAL VIEW" << endl;
   cout << setw(COL_1_WIDTH) << right << "DECIMAL";
   cout << setw(COL_2_WIDTH) << " ";
   cout << setw(COL_3_WIDTH) << left << "CHARACTER" << endl;
@@ -37,6 +39,81 @@ int main()
     }
     i = i + 1;
   }
+
+  cout << "HORIZONTAL VIEW" << endl;
+  const int COLS_PER_ROW = 10;
+  const int LABEL_WIDTH = 7;
+  const int VALUE_WIDTH = 7;
+
+  i = MIN;
+  while (i <= MAX)
+  {
+    bool any_print = false;
+    for(int col = 0; !any_print && col < COLS_PER_ROW; col++) 
+    {
+      int n = i + col;
+      char c = static_cast<char>(n);
+      any_print = isprint(c);
+    }
+
+    if(!any_print) {
+      i = i + COLS_PER_ROW;
+      continue;
+    }
+
+    cout << setw(LABEL_WIDTH) << left << "CHAR";
+    for(int col = 0; col < COLS_PER_ROW; col++) 
+    {
+      int n = i + col;
+      char c = static_cast<char>(n);
+      if (isprint(c) && n <= MAX)
+      {
+        cout << setw(VALUE_WIDTH) << right << c << " ";
+      }
+    }
+
+    cout << endl;
+    cout << setw(LABEL_WIDTH) << left << "DEC";
+    for(int col = 0; col < COLS_PER_ROW; col++) 
+    {
+      int n = i + col;
+      char c = static_cast<char>(n);
+      if (isprint(c) && n <= MAX)
+      {
+        cout << setw(VALUE_WIDTH) << right << std::dec << n << " ";
+      }
+    }  
+    
+    cout << endl;
+    cout << setw(LABEL_WIDTH) << left << "BINARY";
+    for(int col = 0; col < COLS_PER_ROW; col++) 
+    {
+      int n = i + col;
+      char c = static_cast<char>(n);
+      if (isprint(c) && n <= MAX)
+      {
+        cout << setw(VALUE_WIDTH) << right << bitset<7>(n) << " ";
+      }
+    }
+
+    cout << endl;
+    cout << setw(LABEL_WIDTH) << left << "HEX";
+    for(int col = 0; col < COLS_PER_ROW; col++) 
+    {
+      int n = i + col;
+      char c = static_cast<char>(n);
+      if (isprint(c) && n <= MAX)
+      {
+        cout << setw(VALUE_WIDTH) << right << std::hex << std::uppercase << n << " ";
+      }
+    }
+
+    cout << endl;
+    cout << endl;  
+
+    i = i + COLS_PER_ROW;
+  }  
+
 
   return 0;
 }
