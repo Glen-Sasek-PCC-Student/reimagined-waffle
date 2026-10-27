@@ -7,7 +7,8 @@
 
 // ------------- CODE -------------
 #include <iostream>
-
+#include <iomanip> // for setw()
+#include <cctype> 
 using namespace std;
 
 // Function prototypes (if any)
@@ -16,7 +17,22 @@ using namespace std;
 // Main function
 // https://en.cppreference.com/w/cpp/language/main_function.html
 int main() {
-  cout << "Hello, World!" << endl;
+  const int MIN = 0;
+  const int MAX = 127;
+  const int FIELD_WIDTH = 20;
+  
+  cout << setw(FIELD_WIDTH) << left << "DECIMAL" << right << "CHARACTER" << endl; 
+  int i = MIN;
+  while(i <= MAX) 
+  {
+    char c = static_cast<char>(i);
+    if(isprint(c)) {
+      cout << setw(FIELD_WIDTH) << left << i << right << c << endl;
+    } 
+    i = i + 1;
+  }
+
+
   return 0;
 }
 
